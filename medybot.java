@@ -1,4 +1,4 @@
-package medyrobo;//pacote do meu robo
+package medyrobo;//pacote do medybot
 
 
 import robocode.*;//importação do robocode
