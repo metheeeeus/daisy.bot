@@ -103,7 +103,7 @@ public class medybot extends AdvancedRobot {
 		double bearingFromGun = normalRelativeAngleDegrees(absoluteBearing - getGunHeading());
 		double bearingFromRadar = normalRelativeAngleDegrees(absoluteBearing - getRadarHeading());
 		
-		//faz uma espiral em volta do inimigo, se colocassemos 90 graus, ia ser paralelo sempre
+		//faz uma espiral em volta do inimigo, se colocassemos 90 graus, ia ser paralelo sempre, ia fazer um quadrado.
 		// 80 e 100 nos valores, faz o medybot se mover de pouco em pouco para frente
 		if (movingForward){
 			setTurnRight(normalRelativeAngleDegrees(e.getBearing() + 80));
@@ -116,7 +116,7 @@ public class medybot extends AdvancedRobot {
 		if (Math.abs(bearingFromGun) <= 4) {
 			setTurnGunRight(bearingFromGun); 
 			setTurnRadarRight(bearingFromRadar);
-//mantem o radar no inimigo
+		//mantem o radar no inimigo
 			}
 		else {
 			setTurnGunRight(bearingFromGun);
@@ -139,3 +139,9 @@ public class medybot extends AdvancedRobot {
 		}
 	}
 }
+
+
+
+/* Todos os comandos usados e para quê, servem:
+* 
+*/
