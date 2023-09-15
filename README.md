@@ -1,4 +1,4 @@
-# medy
+# medybot
 Campeonato de robocode anhanguera
 Versão do medybot disponível: 0.9
 
