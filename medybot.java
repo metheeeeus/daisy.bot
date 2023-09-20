@@ -113,7 +113,7 @@ public class medybot extends AdvancedRobot {
 		
 
 		// perto o suficiente? atire
-		if (Math.abs(bearingFromGun) <= 2) {
+		if (Math.abs(bearingFromGun) <= 4) {
 			setTurnGunRight(bearingFromGun); 
 			setTurnRadarRight(bearingFromRadar);
 		//mantem o radar no inimigo
