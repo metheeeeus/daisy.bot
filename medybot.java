@@ -41,13 +41,13 @@ public class medybot extends AdvancedRobot {
 		setAdjustRadarForGunTurn(true);
 		
 	// Como eu não quero que o robo acerte a parede ou enfrente algo relacionado a parede, o robo continuamente fica checando se está a 80px da parede
-		if (getX() <= 80 || getY() <= 80 || getBattleFieldWidth() - getX() <= 80 || getBattleFieldHeight() - getY() <= 80) {
+		if (getX() <= 90 || getY() <= 90 || getBattleFieldWidth() - getX() <= 90 || getBattleFieldHeight() - getY() <= 90) {
 				inWall = true;
 			} else {
 			inWall = false;
 		}
 		
-		setAhead(30000); // anda pra frente ate receber outro comando
+		setAhead(45000); // anda pra frente ate receber outro comando
 		setTurnRadarRight(360); // scaneia ate achar inimigo
 		movingForward = true; // define andar pra frente como = true
 		
@@ -85,7 +85,7 @@ public class medybot extends AdvancedRobot {
 	/**
 	 * reverseDirection:  Se atingir a parede, mesmo que a chance seja pequena, é melhor garantir, ele vai para a direção contraria. troca entre andar pra frente e pra tras
  */
-	 */
+	 
 	public void reverseDirection() {
 		if (movingForward) {
 			setBack(40000);
@@ -113,7 +113,7 @@ public class medybot extends AdvancedRobot {
 		
 
 		// perto o suficiente? atire
-		if (Math.abs(bearingFromGun) <= 4) {
+		if (Math.abs(bearingFromGun) <= 2) {
 			setTurnGunRight(bearingFromGun); 
 			setTurnRadarRight(bearingFromRadar);
 		//mantem o radar no inimigo
