@@ -1,4 +1,4 @@
-package medyrobo;//pacote do medybot
+package medyrobo;//pacote do meu robo
 
 
 import robocode.*;//importação do robocode
@@ -28,7 +28,7 @@ import java.awt.*;//importação padrão gráfica do java
 public class medybot extends AdvancedRobot {
 	boolean movingForward;
 	boolean inWall; // // coloca como "true" assim que o robo esta perto da parede, possibilitando determinar comandos como onHitWall.
-// O comando "inwall = true" vai definir se ele está distante 80px, senão (else) "inwall = false"
+// O comando "inwall = true" vai definir se ele está distante 50px, senão (else) "inwall = false"
 
 	public void run() {
 		// Set colors
@@ -40,14 +40,14 @@ public class medybot extends AdvancedRobot {
 		setAdjustGunForRobotTurn(true);
 		setAdjustRadarForGunTurn(true);
 		
-	// Como eu não quero que o robo acerte a parede ou enfrente algo relacionado a parede, o robo continuamente fica checando se está a 80px da parede
-		if (getX() <= 90 || getY() <= 90 || getBattleFieldWidth() - getX() <= 90 || getBattleFieldHeight() - getY() <= 90) {
+	// Como eu não quero que o robo acerte a parede ou enfrente algo relacionado a parede, o robo continuamente fica checando se está a 50px da parede
+		if (getX() <= 50 || getY() <= 50 || getBattleFieldWidth() - getX() <= 50 || getBattleFieldHeight() - getY() <= 50) {
 				inWall = true;
 			} else {
 			inWall = false;
 		}
 		
-		setAhead(45000); // anda pra frente ate receber outro comando
+		setAhead(30000); // anda pra frente ate receber outro comando
 		setTurnRadarRight(360); // scaneia ate achar inimigo
 		movingForward = true; // define andar pra frente como = true
 		
@@ -85,7 +85,6 @@ public class medybot extends AdvancedRobot {
 	/**
 	 * reverseDirection:  Se atingir a parede, mesmo que a chance seja pequena, é melhor garantir, ele vai para a direção contraria. troca entre andar pra frente e pra tras
  */
-	 
 	public void reverseDirection() {
 		if (movingForward) {
 			setBack(40000);
@@ -103,32 +102,36 @@ public class medybot extends AdvancedRobot {
 		double bearingFromGun = normalRelativeAngleDegrees(absoluteBearing - getGunHeading());
 		double bearingFromRadar = normalRelativeAngleDegrees(absoluteBearing - getRadarHeading());
 		
-		//faz uma espiral em volta do inimigo, se colocassemos 90 graus, ia ser paralelo sempre, ia fazer um quadrado.
-		// 80 e 100 nos valores, faz o medybot se mover de pouco em pouco para frente
+		//faz uma espiral em volta do inimigo, se colocassemos 90 graus, ia ser paralelo sempre
+		// 50 e 100 nos valores, faz o medybot se mover de pouco em pouco para frente
 		if (movingForward){
-			setTurnRight(normalRelativeAngleDegrees(e.getBearing() + 80));
+			setTurnRight(normalRelativeAngleDegrees(e.getBearing() + 50));
 		} else {
 			setTurnRight(normalRelativeAngleDegrees(e.getBearing() + 100));
 		}
 		
 
 		// perto o suficiente? atire
-		if (Math.abs(bearingFromGun) <= 4) {
+		if (Math.abs(bearingFromGun)<=4) {
 			setTurnGunRight(bearingFromGun); 
-			setTurnRadarRight(bearingFromRadar);
-		//mantem o radar no inimigo
+			setTurnRadarRight(bearingFromRadar);	
+					//mantem o radar no inimigo
 			}
+			
+		if (getGunHeat() == 0 && getEnergy() > .2) { //configuração do tiro (o pacifismo termina aqui.)
+				fire(Math.min(4.5 - Math.abs(bearingFromGun) / 2 - e.getDistance() / 250, getEnergy() - .1));
+			} 
+			
 		else {
 			setTurnGunRight(bearingFromGun);
 			setTurnRadarRight(bearingFromRadar);
 		}
 		// gera outro scan, se ver outro robo
 		// AVISO -----------------> É SÓ UMA PRECAUÇÃO, CASO O RADAR FALHE!
-		if (bearingFromGun == 0) {
+		if (bearingFromGun == 4) {
 			scan();
 		}
 	}		
-
 	/**
 	 * onHitRobot:  recua
 	 */
@@ -139,9 +142,3 @@ public class medybot extends AdvancedRobot {
 		}
 	}
 }
-
-
-
-/* Todos os comandos usados e para quê, servem:
-* 
-*/
